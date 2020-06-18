@@ -70,7 +70,7 @@ void WellGenerator::generateWells() {
             for (const auto& prismIndex : wellStartPrisms)
                 wellStartVertices.insert(this->prisms[prismIndex].cbegin(), this->prisms[prismIndex].cend());
 
-            std::unordered_map<int, int> map;
+            boost::unordered_map<int, int> map;
             for (const auto& vertexIndex : wellStartVertices)
                 for (const auto& prismIndex : wellStartPrisms)
                     if (std::find(this->prisms[prismIndex].cbegin(), this->prisms[prismIndex].cend(), vertexIndex) != this->prisms[prismIndex].cend())
