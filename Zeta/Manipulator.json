@@ -1,7 +1,7 @@
 {
     "path" :
     {
-        "input"  : "/home/felipe/Downloads/mandel.cgns",
+        "input"  : "/home/felipe/Github/MSHtoCGNS/Zeta/Test/mandel.cgns",
         "output"  : "/home/felipe/Downloads"
     },
 
