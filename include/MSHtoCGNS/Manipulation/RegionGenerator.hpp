@@ -21,6 +21,7 @@
 
 using Point = boost::geometry::model::point<double, 3, boost::geometry::cs::cartesian>;
 using Box = boost::geometry::model::box<Point>;
+using MultiPoint = boost::geometry::model::multi_point<Point>;
 
 struct RegionGeneratorData {
     std::string name;
@@ -33,17 +34,16 @@ class RegionGenerator {
 
         ~RegionGenerator() = default;
 
-        double tolerance = 1e-3;
-
     private:
         void readScript();
-        void checkGridData();
+        void generateCoordinates();
         void generateRegions();
-        bool isElementInRange(const std::vector<int>& connectivity, const Box& box);
+        bool isElementInRange(std::vector<std::vector<int>>::iterator connectivity, const Box& box);
 
         boost::shared_ptr<GridData> gridData;
         boost::property_tree::ptree propertyTree;
 
+        std::vector<Point> coordinates;
         std::vector<RegionGeneratorData> regionGeneratorDatum;
 
         int marker = -1;
