@@ -1,6 +1,6 @@
 #include "MSHtoCGNS/BoostInterface/Test.hpp"
 #include "MSHtoCGNS/CgnsInterface/CgnsReader.hpp"
-#include "MSHtoCGNS/Manipulation/RegionGenerator.hpp"
+#include "MSHtoCGNS/Manipulation/Generator/RegionGenerator.hpp"
 #include <cgnslib.h>
 
 #include "MSHtoCGNS/Manipulation/GridDataExtractor.hpp"

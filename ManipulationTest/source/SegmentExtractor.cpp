@@ -69,7 +69,7 @@ TestCase(SegmentExtractorTest) {
             checkEqual(section.begin, 48);
             checkEqual(section.end, 84);
             checkEqual(section.vertices.size(), 37u);
-            // check(std::all_of(section.vertices.cbegin(), section.vertices.cend(), [=](auto v){return v >= 0 && v < 37;}));
+            checkEqual(std::all_of(section.vertices.cbegin(), section.vertices.cend(), [=](auto v){return v >= 0 && v < 37;}), true);
         }
 
         {
@@ -79,7 +79,7 @@ TestCase(SegmentExtractorTest) {
             checkEqual(section.begin, 84);
             checkEqual(section.end, 120);
             checkEqual(section.vertices.size(), 37u);
-            // check(std::all_of(section.vertices.cbegin(), section.vertices.cend(), [=](auto v){return v >= 37 && v < 74;}));
+            checkEqual(std::all_of(section.vertices.cbegin(), section.vertices.cend(), [=](auto v){return v >= 37 && v < 74;}), true);
         }
 
         {
@@ -89,16 +89,9 @@ TestCase(SegmentExtractorTest) {
             checkEqual(section.begin, 120);
             checkEqual(section.end, 121);
             std::vector<int> expected{0, 37};
-            // checkEqualCollections(section.vertices.cbegin(), section.vertices.cend(), expected.cbegin(), expected.cend());
+            checkEqualCollections(section.vertices.cbegin(), section.vertices.cend(), expected.cbegin(), expected.cend());
         }
     }
-
-
-    // checkEqual(segment->wells[0].begin, 120);
-    // checkEqual(segment->wells[0].end, 121);
-    // checkEqual(segment->wells[0].vertices.size(), 2u);
-    // checkEqual(segment->wells[0].vertices[0],  0);
-    // checkEqual(segment->wells[0].vertices[1], 37);
 
     // for (int j = 0; j < 12; ++j)
     //     checkEqual(segment->prisms[j].back(), j);
@@ -122,10 +115,10 @@ TestCase(SegmentExtractorTest) {
     // checkEqual(segment->lines[0].back(), 120);
 
     // for (int j = 0; j < 12; ++j)
-    //     check(std::all_of(segment->triangles[j + 12].cbegin(), segment->triangles[j + 12].cend() - 1, [=](auto v){return v >= 37 && v < 74;}));
+    //     checkEqual(std::all_of(segment->triangles[j + 12].cbegin(), segment->triangles[j + 12].cend() - 1, [=](auto v){return v >= 37 && v < 74;}), true);
 
     // for (int j = 0; j < 24; ++j)
-    //     check(std::all_of(segment->quadrangles[j + 36].cbegin(), segment->quadrangles[j + 36].cend() - 1, [=](auto v){return v >= 37 && v < 74;}));
+    //     checkEqual(std::all_of(segment->quadrangles[j + 36].cbegin(), segment->quadrangles[j + 36].cend() - 1, [=](auto v){return v >= 37 && v < 74;}), true);
 
     // for (int j = 0; j < 37; ++j) {
     //     checkSmall(segment->coordinates[37 * 0 + j][2], TOLERANCE);

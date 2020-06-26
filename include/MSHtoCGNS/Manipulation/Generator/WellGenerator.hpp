@@ -8,23 +8,14 @@
 
 #include <boost/unordered_map.hpp>
 
-#include "MSHtoCGNS/BoostInterface/Filesystem.hpp"
-#include "MSHtoCGNS/BoostInterface/PropertyTree.hpp"
+#include "MSHtoCGNS/BoostInterface/Geometry.hpp"
 #include "MSHtoCGNS/Utilities/Vector.hpp"
-#include "MSHtoCGNS/GridData/GridData.hpp"
+#include "MSHtoCGNS/Manipulation/Generator.hpp"
 
-struct WellGeneratorData {
-    std::string regionName;
-    std::array<double, 3> wellStart;
-    int wellDirection;
-    std::string wellName;
-};
-
-class WellGenerator {
+class WellGenerator : public Generator {
     public:
-        WellGenerator(boost::shared_ptr<GridData> gridData, std::string wellGeneratorScript);
-
-        WellGenerator(boost::shared_ptr<GridData> gridData, boost::property_tree::ptree propertyTree);
+        WellGenerator(boost::shared_ptr<GridData> gridData, std::string scriptPath);
+        WellGenerator(boost::shared_ptr<GridData> gridData, boost::property_tree::ptree script);
 
         ~WellGenerator() = default;
 
@@ -32,15 +23,10 @@ class WellGenerator {
 
     private:
         void checkGridData();
-        void readScript();
         void generateWells();
         void defineQuantities();
         bool isClose(const std::array<double, 3>& coordinate, const std::array<double, 3>& referencePoint);
 
-        boost::shared_ptr<GridData> gridData;
-        boost::property_tree::ptree propertyTree;
-
-        std::vector<WellGeneratorData> wellGeneratorDatum;
         int linesShift;
 
         int currentIndex = -1;
