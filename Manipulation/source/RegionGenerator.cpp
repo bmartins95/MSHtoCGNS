@@ -45,17 +45,8 @@ void RegionGenerator::generateRegions() {
         }
         std::sort(regions.begin(), regions.end(), [](const auto& a, const auto& b){return a->begin < b->begin;});
 
-        for (auto region : regions) {
-            std::cout << boost::str(boost::format("\n\t%6s %3i %3i") % region->name % region->begin % region->end);
-        }
-        std::cout << std::endl;
-        std::cout << boost::str(boost::format("\n\t%s") % rGD.name);
-        std::cout << boost::str(boost::format("\n\t\t%.3f %.3f %.3f") % rGD.box.min_corner().get<0>() % rGD.box.min_corner().get<1>() % rGD.box.min_corner().get<2>());
-        std::cout << boost::str(boost::format("\n\t\t%.3f %.3f %.3f") % rGD.box.max_corner().get<0>() % rGD.box.max_corner().get<1>() % rGD.box.max_corner().get<2>());
-        std::cout << std::endl;
-
         auto& cs = this->gridData->connectivities;
-
+        int notRemovedFromLastRegion = 0;
         for (auto region = regions.begin(); region != regions.end(); ++region) {
             for (auto connectivity = cs.begin() + (*region)->begin; connectivity != cs.begin() + (*region)->end; ++connectivity) {
                 if (connectivity->at(0) == TETRA_4 || connectivity->at(0) == HEXA_8 || connectivity->at(0) == PENTA_6 || connectivity->at(0) == PYRA_5) {
@@ -63,6 +54,9 @@ void RegionGenerator::generateRegions() {
                         connectivity->back() = this->marker;
                         for (auto former = regions.begin(); former != region; ++former) {
                             (*former)->end++;
+                        }
+                        if (region != regions.end() - 1) {
+                            notRemovedFromLastRegion++;
                         }
                     }
                 }
@@ -79,6 +73,7 @@ void RegionGenerator::generateRegions() {
         for (auto region : regions) {
             region->begin += end;
         }
+        regions.back()->begin -= notRemovedFromLastRegion;
 
         this->gridData->sections.emplace_back(SectionData(rGD.name, this->gridData->dimension, 0, end, std::vector<int>{}));
 
@@ -86,8 +81,6 @@ void RegionGenerator::generateRegions() {
             connectivity->back() = std::distance(cs.begin(), connectivity);
         }
         std::sort(this->gridData->sections.begin(), this->gridData->sections.end(), [](const auto& a, const auto& b){return a.begin < b.begin;});
-
-        printGridDataInformation(this->gridData);
     }
 }
 

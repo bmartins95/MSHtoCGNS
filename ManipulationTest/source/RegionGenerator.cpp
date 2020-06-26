@@ -82,13 +82,6 @@ TestCase(RegionGeneratorTest) {
     //     checkEqual(section.begin, 8);
     //     checkEqual(section.end, 64);
     // }
-
-    GridDataExtractor gridDataExtractor(this->gridData, "./GridDataExtractor2.json");
-    std::vector<boost::shared_ptr<GridData>> gridDatas{this->gridData, gridDataExtractor.extract};
-    std::vector<std::string> baseNames{"BASE", "OTHER"};
-    MultipleBasesCgnsCreator multipleBasesCgnsCreator(gridDatas, baseNames, baseNames, "");
-
-    // std::cout << std::endl << this->inputPath << std::endl;
 }
 
 TestSuiteEnd()
