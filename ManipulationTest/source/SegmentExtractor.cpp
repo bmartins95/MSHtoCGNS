@@ -93,43 +93,42 @@ TestCase(SegmentExtractorTest) {
         }
     }
 
-    // for (int j = 0; j < 12; ++j)
-    //     checkEqual(segment->prisms[j].back(), j);
+    for (int j = 0; j < 12; ++j)
+        checkEqual(segment->connectivities[j].front(), 14);
 
-    // for (int j = 0; j < 24; ++j)
-    //     checkEqual(segment->hexahedrons[j].back(), 12 + j);
+    for (int j = 12; j < 36; ++j)
+        checkEqual(segment->connectivities[j].front(), 17);
 
-    // for (int j = 0; j < 12; ++j)
-    //     checkEqual(segment->quadrangles[j].back(), 36 + j);
+    for (int j = 48; j < 60; ++j)
+        checkEqual(segment->connectivities[j].front(), 5);
 
-    // for (int j = 0; j < 12; ++j) {
-    //     checkEqual(segment->triangles[j     ].back(), 48 + j);
-    //     checkEqual(segment->triangles[j + 12].back(), 84 + j);
-    // }
+    for (int j = 60; j < 84; ++j)
+        checkEqual(segment->connectivities[j].front(), 7);
 
-    // for (int j = 0; j < 24; ++j) {
-    //     checkEqual(segment->quadrangles[j + 12].back(), 60 + j);
-    //     checkEqual(segment->quadrangles[j + 36].back(), 96 + j);
-    // }
+    for (int j = 84; j < 96; ++j)
+        checkEqual(segment->connectivities[j].front(), 5);
 
-    // checkEqual(segment->lines[0].back(), 120);
+    for (int j = 96; j < 120; ++j)
+        checkEqual(segment->connectivities[j].front(), 7);
 
-    // for (int j = 0; j < 12; ++j)
-    //     checkEqual(std::all_of(segment->triangles[j + 12].cbegin(), segment->triangles[j + 12].cend() - 1, [=](auto v){return v >= 37 && v < 74;}), true);
+    checkEqual(segment->connectivities[120].front(), 3);
 
-    // for (int j = 0; j < 24; ++j)
-    //     checkEqual(std::all_of(segment->quadrangles[j + 36].cbegin(), segment->quadrangles[j + 36].cend() - 1, [=](auto v){return v >= 37 && v < 74;}), true);
+    for (int j = 48; j < 84; ++j)
+        checkEqual(std::all_of(segment->connectivities[j].cbegin() + 1, segment->connectivities[j].cend() - 1, [=](auto v){return v < 37;}), true);
 
-    // for (int j = 0; j < 37; ++j) {
-    //     checkSmall(segment->coordinates[37 * 0 + j][2], TOLERANCE);
-    //     checkClose(segment->coordinates[37 * 1 + j][2], 5.5555555, TOLERANCE);
-    // }
+    for (int j = 84; j < 120; ++j)
+        checkEqual(std::all_of(segment->connectivities[j].cbegin() + 1, segment->connectivities[j].cend() - 1, [=](auto v){return v >= 37 && v < 74;}), true);
 
-    // for (int j = 0; j < 37; ++j)
-    //     checkClose(fabs(segment->coordinates[37 * 0 + j][2] - segment->coordinates[37 *  1 + j][2]), 5.5555555555555554e+00, TOLERANCE);
+    for (int j = 0; j < 37; ++j) {
+        checkSmall(segment->coordinates[37 * 0 + j][2], TOLERANCE);
+        checkClose(segment->coordinates[37 * 1 + j][2], 5.5555555, TOLERANCE);
+    }
 
-    // for (int j = 0; j < 37; ++j)
-    //     checkClose(calculateDistance(segment->coordinates[37 * 0 + j], segment->coordinates[37 *  1 + j]), 5.5555555555555554e+00, TOLERANCE);
+    for (int j = 0; j < 37; ++j)
+        checkClose(fabs(segment->coordinates[37 * 0 + j][2] - segment->coordinates[37 *  1 + j][2]), 5.5555555555555554e+00, TOLERANCE);
+
+    for (int j = 0; j < 37; ++j)
+        checkClose(calculateDistance(segment->coordinates[37 * 0 + j], segment->coordinates[37 *  1 + j]), 5.5555555555555554e+00, TOLERANCE);
 }
 
 TestSuiteEnd()

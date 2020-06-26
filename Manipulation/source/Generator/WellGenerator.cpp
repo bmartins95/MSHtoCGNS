@@ -101,12 +101,3 @@ void WellGenerator::defineQuantities() {
     this->numberOfElementsPerSection = wellStartPrisms.size();
     this->numberOfSegments = this->numberOfPrisms / this->numberOfElementsPerSection;
 }
-
-bool WellGenerator::isClose(const std::array<double, 3>& coordinate, const std::array<double, 3>& referencePoint) {
-    bool close = true;
-
-    for (int i = 0; i < 3; ++i)
-        close &= fabs(coordinate[i] - referencePoint[i]) < this->tolerance;
-
-    return close;
-}

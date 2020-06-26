@@ -25,7 +25,6 @@ class WellGenerator : public Generator {
         void checkGridData();
         void generateWells();
         void defineQuantities();
-        bool isClose(const std::array<double, 3>& coordinate, const std::array<double, 3>& referencePoint);
 
         int linesShift;
 
