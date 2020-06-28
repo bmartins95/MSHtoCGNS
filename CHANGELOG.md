@@ -5,6 +5,7 @@
 ### Added
 
 - Manipulation: RegionGenerator
+- Manipulation: CartesianWellGenerator
 
 ### Changed
 
